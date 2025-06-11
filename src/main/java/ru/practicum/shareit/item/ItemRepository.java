@@ -1,17 +1,28 @@
 package ru.practicum.shareit.item;
 
-import java.util.Collection;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 import java.util.Optional;
 
-public interface ItemRepository {
+@Repository
+public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    Item create(Item item);
-
-    Item update(Item item);
-
+    @Override
+    @EntityGraph("item.owner")
     Optional<Item> findById(Long id);
 
-    Collection<Item> findAllByOwnerId(Long ownerId);
+    List<Item> findByOwnerIdOrderByIdAsc(Long ownerId);
 
-    Collection<Item> findByTextQuery(String textQuery);
+    @Query("SELECT it " +
+            "FROM Item as it " +
+            "WHERE it.available = true " +
+            "AND ((lower(it.name) LIKE lower(concat('%', :text, '%'))) " +
+            "OR (lower(it.description) LIKE lower(concat('%', :text, '%'))))"
+    )
+    List<Item> findByTextQuery(@Param("text") String textQuery);
 }
