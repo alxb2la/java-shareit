@@ -1,17 +1,8 @@
 package ru.practicum.shareit.user;
 
-import java.util.Collection;
-import java.util.Optional;
+import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository {
-
-    User create(User user);
-
-    User update(User user);
-
-    void delete(Long id);
-
-    Optional<User> findById(Long id);
-
-    Collection<User> findAll();
+@Repository
+public interface UserRepository extends ListCrudRepository<User, Long> {
 }

@@ -2,6 +2,7 @@ package ru.practicum.shareit.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.user.dto.UserCreateDto;
 import ru.practicum.shareit.user.dto.UserFullDto;
@@ -10,6 +11,7 @@ import ru.practicum.shareit.user.dto.UserUpdateDto;
 import java.util.Collection;
 
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -21,12 +23,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserFullDto addUser(UserCreateDto userCreateDto) {
-        User user = userRepository.create(userMapper.toUser(userCreateDto));
+        User user = userRepository.save(userMapper.toUser(userCreateDto));
         return userMapper.toUserFullDto(user);
     }
 
     @Override
+    @Transactional
     public UserFullDto updateUser(Long userId, UserUpdateDto userUpdateDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found by id: " + userId));
@@ -37,15 +41,16 @@ public class UserServiceImpl implements UserService {
         if (userUpdateDto.getName() != null) {
             user.setName(userUpdateDto.getName());
         }
-        User updatedUser = userRepository.update(user);
+        User updatedUser = userRepository.save(user);
         return userMapper.toUserFullDto(updatedUser);
     }
 
     @Override
+    @Transactional
     public void removeUserById(Long userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found by id: " + userId));
-        userRepository.delete(userId);
+        userRepository.deleteById(userId);
     }
 
     @Override
