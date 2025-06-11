@@ -1,10 +1,12 @@
 package ru.practicum.shareit.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -48,9 +50,9 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleConflictEmailException(final ConflictEmailException e) {
+    public ErrorResponse handleDataIntegrityViolationException(final DataIntegrityViolationException e) {
         log.warn("Error", e);
-        return new ErrorResponse("Conflict of users email addresses", e.getMessage());
+        return new ErrorResponse("Violation of data uniqueness", e.getMessage());
     }
 
     @ExceptionHandler
@@ -58,6 +60,27 @@ public class ErrorHandler {
     public ErrorResponse handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
         log.warn("Error", e);
         return new ErrorResponse("Validation error", e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleMissingRequestHeaderException(final MissingRequestHeaderException e) {
+        log.warn("Error", e);
+        return new ErrorResponse("The required request header(s) was not received", e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidationException(final ValidationException e) {
+        log.warn("Error", e);
+        return new ErrorResponse("Validation error", e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleUnsupportedOperationException(final UnsupportedOperationException e) {
+        log.warn("Error", e);
+        return new ErrorResponse("Unsupported operation error", e.getMessage());
     }
 
     @ExceptionHandler
