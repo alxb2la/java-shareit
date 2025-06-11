@@ -124,6 +124,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
     public CommentPartialDto addComment(Long itemId, Long authorId, CommentCreateDto commentCreateDto) {
         Booking booking = bookingRepository.findFirstByItemIdAndBookerIdAndEndBefore(itemId, authorId, LocalDateTime.now())
                 .orElseThrow(() -> new ValidationException("User with ID: " + authorId +
