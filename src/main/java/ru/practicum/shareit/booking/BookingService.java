@@ -6,6 +6,11 @@ import ru.practicum.shareit.booking.dto.BookingState;
 
 import java.util.Collection;
 
+/**
+ * Интерфейс, определяющий набор методов для связи контроллера Booking и репозитория Booking,
+ * и реализующий бизнес логику.
+ */
+
 public interface BookingService {
 
     BookingPartialDto addBooking(Long userId, BookingCreateDto booking);

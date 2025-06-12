@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Интерфейс, определяющий набор стандартных и дополнительных действий хранения и поиска
+ * с объектом типа Comment, используя запросные методы
+ */
+
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 

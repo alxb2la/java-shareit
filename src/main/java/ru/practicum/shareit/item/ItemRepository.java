@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Интерфейс, определяющий набор стандартных и дополнительных действий хранения и поиска
+ * с объектом типа Item, используя запросные методы и jpql
+ */
+
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 

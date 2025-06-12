@@ -6,6 +6,11 @@ import ru.practicum.shareit.user.dto.UserUpdateDto;
 
 import java.util.Collection;
 
+/**
+ * Интерфейс, определяющий набор методов для связи контроллера User и репозитория User,
+ * и реализующий бизнес логику.
+ */
+
 public interface UserService {
 
     UserFullDto addUser(UserCreateDto user);

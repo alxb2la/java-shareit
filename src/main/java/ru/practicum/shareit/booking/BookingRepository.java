@@ -7,6 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Интерфейс, определяющий набор стандартных и дополнительных действий хранения и поиска
+ * с объектом типа Booking, используя запросные методы
+ */
+
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByBookerIdOrderByStartDesc(Long userId);
