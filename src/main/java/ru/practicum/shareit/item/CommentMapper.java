@@ -1,16 +1,18 @@
 package ru.practicum.shareit.item;
 
-import org.springframework.stereotype.Component;
 import ru.practicum.shareit.item.dto.CommentCreateDto;
 import ru.practicum.shareit.item.dto.CommentPartialDto;
 import ru.practicum.shareit.user.User;
 
 import java.time.LocalDateTime;
 
-@Component
-public class CommentMapper {
+public final class CommentMapper {
 
-    public Comment toComment(CommentCreateDto commentCreateDto, Item item, User author) {
+    private CommentMapper() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static Comment toComment(CommentCreateDto commentCreateDto, Item item, User author) {
         return Comment.builder()
                 .id(null)
                 .text(commentCreateDto.getText())
@@ -20,7 +22,7 @@ public class CommentMapper {
                 .build();
     }
 
-    public CommentPartialDto toCommentPartialDto(Comment comment) {
+    public static CommentPartialDto toCommentPartialDto(Comment comment) {
         return CommentPartialDto.builder()
                 .id(comment.getId())
                 .text(comment.getText())

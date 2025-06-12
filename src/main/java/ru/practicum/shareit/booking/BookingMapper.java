@@ -1,15 +1,17 @@
 package ru.practicum.shareit.booking;
 
-import org.springframework.stereotype.Component;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingPartialDto;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.user.User;
 
-@Component
-public class BookingMapper {
+public final class BookingMapper {
 
-    public BookingPartialDto toBookingPartialDto(Booking booking) {
+    private BookingMapper() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static BookingPartialDto toBookingPartialDto(Booking booking) {
         BookingPartialDto.ItemShortDto item = new BookingPartialDto.ItemShortDto(booking.getItem().getId(),
                 booking.getItem().getName());
         BookingPartialDto.UserShortDto booker = new BookingPartialDto.UserShortDto(booking.getBooker().getId(),
@@ -25,7 +27,7 @@ public class BookingMapper {
                 .build();
     }
 
-    public Booking toBooking(BookingCreateDto bookingCreateDto, Item item, User booker) {
+    public static Booking toBooking(BookingCreateDto bookingCreateDto, Item item, User booker) {
         return Booking.builder()
                 .id(null)
                 .start(bookingCreateDto.getStart())

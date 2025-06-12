@@ -1,6 +1,6 @@
 package ru.practicum.shareit.item;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.Booking;
@@ -17,34 +17,21 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     private final CommentRepository commentRepository;
-    private final ItemMapper itemMapper;
-    private final CommentMapper commentMapper;
-
-    @Autowired
-    public ItemServiceImpl(ItemRepository itemRepository, UserRepository userRepository,
-                           BookingRepository bookingRepository, CommentRepository commentRepository,
-                           ItemMapper itemMapper, CommentMapper commentMapper) {
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-        this.bookingRepository = bookingRepository;
-        this.commentRepository = commentRepository;
-        this.itemMapper = itemMapper;
-        this.commentMapper = commentMapper;
-    }
 
     @Override
     @Transactional
     public ItemPartialDto addItem(Long userId, ItemCreateDto itemCreateDto) {
         User owner = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found by id: " + userId));
-        Item item = itemRepository.save(itemMapper.toItem(itemCreateDto, owner));
-        return itemMapper.toItemPartialDto(item);
+        Item item = itemRepository.save(ItemMapper.toItem(itemCreateDto, owner));
+        return ItemMapper.toItemPartialDto(item);
     }
 
     @Override
@@ -66,7 +53,7 @@ public class ItemServiceImpl implements ItemService {
             item.setAvailable(itemUpdateDto.getAvailable());
         }
         Item updatedItem = itemRepository.save(item);
-        return itemMapper.toItemPartialDto(updatedItem);
+        return ItemMapper.toItemPartialDto(updatedItem);
     }
 
     @Override
@@ -75,15 +62,15 @@ public class ItemServiceImpl implements ItemService {
                 .orElseThrow(() -> new NotFoundException("Item not found by id: " + itemId));
 
         List<CommentPartialDto> comments = commentRepository.findByItemId(itemId).stream()
-                .map(commentMapper::toCommentPartialDto)
+                .map(CommentMapper::toCommentPartialDto)
                 .toList();
         if (userId.equals(item.getOwner().getId())) {
             List<Booking> bookings = bookingRepository.findByItemId(itemId);
-            return itemMapper.toItemInfoDto(item, bookings, comments);
+            return ItemMapper.toItemInfoDto(item, bookings, comments);
         } else {
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new NotFoundException("User not found by id: " + userId));
-            return itemMapper.toItemInfoDto(item, List.of(), comments);
+            return ItemMapper.toItemInfoDto(item, List.of(), comments);
         }
     }
 
@@ -106,9 +93,9 @@ public class ItemServiceImpl implements ItemService {
                     .toList();
             List<CommentPartialDto> itemComments = comments.stream()
                     .filter((c) -> c.getItem().getId().equals(item.getId()))
-                    .map(commentMapper::toCommentPartialDto)
+                    .map(CommentMapper::toCommentPartialDto)
                     .toList();
-            itemInfoDtos.add(itemMapper.toItemInfoDto(item, itemBookings, itemComments));
+            itemInfoDtos.add(ItemMapper.toItemInfoDto(item, itemBookings, itemComments));
         }
         return itemInfoDtos;
     }
@@ -119,7 +106,7 @@ public class ItemServiceImpl implements ItemService {
             return List.of();
         }
         return itemRepository.findByTextQuery(textQuery).stream()
-                .map(itemMapper::toItemPartialDto)
+                .map(ItemMapper::toItemPartialDto)
                 .toList();
     }
 
@@ -129,8 +116,8 @@ public class ItemServiceImpl implements ItemService {
         Booking booking = bookingRepository.findFirstByItemIdAndBookerIdAndEndBefore(itemId, authorId, LocalDateTime.now())
                 .orElseThrow(() -> new ValidationException("User with ID: " + authorId +
                         " did not rent Item with ID: " + itemId));
-        Comment comment = commentRepository.save(commentMapper.toComment(commentCreateDto,
+        Comment comment = commentRepository.save(CommentMapper.toComment(commentCreateDto,
                 booking.getItem(), booking.getBooker()));
-        return commentMapper.toCommentPartialDto(comment);
+        return CommentMapper.toCommentPartialDto(comment);
     }
 }

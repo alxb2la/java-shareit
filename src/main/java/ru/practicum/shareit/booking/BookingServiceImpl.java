@@ -1,6 +1,6 @@
 package ru.practicum.shareit.booking;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
@@ -18,21 +18,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
-    private final BookingMapper bookingMapper;
-
-    @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, ItemRepository itemRepository,
-                              UserRepository userRepository, BookingMapper bookingMapper) {
-        this.bookingRepository = bookingRepository;
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-        this.bookingMapper = bookingMapper;
-    }
 
     @Override
     @Transactional
@@ -51,8 +42,8 @@ public class BookingServiceImpl implements BookingService {
         }
 
         bookingCreateDto.setStatus(Booking.BookingStatus.WAITING);
-        Booking booking = bookingRepository.save(bookingMapper.toBooking(bookingCreateDto, item, booker));
-        return bookingMapper.toBookingPartialDto(booking);
+        Booking booking = bookingRepository.save(BookingMapper.toBooking(bookingCreateDto, item, booker));
+        return BookingMapper.toBookingPartialDto(booking);
     }
 
     @Override
@@ -71,7 +62,7 @@ public class BookingServiceImpl implements BookingService {
             booking.setStatus(Booking.BookingStatus.REJECTED);
         }
         Booking updatedBooking = bookingRepository.save(booking);
-        return bookingMapper.toBookingPartialDto(updatedBooking);
+        return BookingMapper.toBookingPartialDto(updatedBooking);
     }
 
     @Override
@@ -83,7 +74,7 @@ public class BookingServiceImpl implements BookingService {
                     " is not a owner of Item with ID: " + booking.getItem().getId() +
                     " or is not a owner of Booking with ID: " + booking.getId());
         }
-        return bookingMapper.toBookingPartialDto(booking);
+        return BookingMapper.toBookingPartialDto(booking);
     }
 
     @Override
@@ -118,7 +109,7 @@ public class BookingServiceImpl implements BookingService {
                 throw new UnsupportedOperationException("Booking state param: " + state + " unsupported");
         }
         return bookings.stream()
-                .map(bookingMapper::toBookingPartialDto)
+                .map(BookingMapper::toBookingPartialDto)
                 .toList();
     }
 
@@ -160,7 +151,7 @@ public class BookingServiceImpl implements BookingService {
                 throw new UnsupportedOperationException("Booking state param: " + state + " unsupported");
         }
         return bookings.stream()
-                .map(bookingMapper::toBookingPartialDto)
+                .map(BookingMapper::toBookingPartialDto)
                 .toList();
     }
 }

@@ -1,6 +1,6 @@
 package ru.practicum.shareit.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.NotFoundException;
@@ -11,22 +11,16 @@ import ru.practicum.shareit.user.dto.UserUpdateDto;
 import java.util.Collection;
 
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     @Override
     @Transactional
     public UserFullDto addUser(UserCreateDto userCreateDto) {
-        User user = userRepository.save(userMapper.toUser(userCreateDto));
-        return userMapper.toUserFullDto(user);
+        User user = userRepository.save(UserMapper.toUser(userCreateDto));
+        return UserMapper.toUserFullDto(user);
     }
 
     @Override
@@ -42,7 +36,7 @@ public class UserServiceImpl implements UserService {
             user.setName(userUpdateDto.getName());
         }
         User updatedUser = userRepository.save(user);
-        return userMapper.toUserFullDto(updatedUser);
+        return UserMapper.toUserFullDto(updatedUser);
     }
 
     @Override
@@ -57,13 +51,13 @@ public class UserServiceImpl implements UserService {
     public UserFullDto getUserById(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found by id: " + userId));
-        return userMapper.toUserFullDto(user);
+        return UserMapper.toUserFullDto(user);
     }
 
     @Override
     public Collection<UserFullDto> getAllUsers() {
         return userRepository.findAll().stream()
-                .map(userMapper::toUserFullDto)
+                .map(UserMapper::toUserFullDto)
                 .toList();
     }
 }

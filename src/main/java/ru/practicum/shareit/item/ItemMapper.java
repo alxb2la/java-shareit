@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item;
 
-import org.springframework.stereotype.Component;
 import ru.practicum.shareit.booking.Booking;
 import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.user.User;
@@ -9,10 +8,13 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
-@Component
-public class ItemMapper {
+public final class ItemMapper {
 
-    public ItemPartialDto toItemPartialDto(Item item) {
+    private ItemMapper() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static ItemPartialDto toItemPartialDto(Item item) {
         return ItemPartialDto.builder()
                 .id(item.getId())
                 .name(item.getName())
@@ -21,7 +23,7 @@ public class ItemMapper {
                 .build();
     }
 
-    public Item toItem(ItemCreateDto itemCreateDto, User owner) {
+    public static Item toItem(ItemCreateDto itemCreateDto, User owner) {
         return Item.builder()
                 .id(null)
                 .name(itemCreateDto.getName())
@@ -31,7 +33,7 @@ public class ItemMapper {
                 .build();
     }
 
-    public ItemInfoDto toItemInfoDto(Item item, List<Booking> bookings, List<CommentPartialDto> comments) {
+    public static ItemInfoDto toItemInfoDto(Item item, List<Booking> bookings, List<CommentPartialDto> comments) {
         ItemInfoDto.BookingShortDto lastBookingDto;
         ItemInfoDto.BookingShortDto nextBookingDto;
         if (bookings == null || bookings.isEmpty()) {
@@ -66,14 +68,14 @@ public class ItemMapper {
                 .build();
     }
 
-    private Booking getLastBooking(List<Booking> bookings) {
+    private static Booking getLastBooking(List<Booking> bookings) {
         return bookings.stream()
                 .filter(booking -> booking.getStart().isBefore(LocalDateTime.now()))
                 .max(Comparator.comparing(Booking::getStart, LocalDateTime::compareTo))
                 .orElse(null);
     }
 
-    private Booking getNextBooking(List<Booking> bookings) {
+    private static Booking getNextBooking(List<Booking> bookings) {
         return bookings.stream()
                 .filter(booking -> booking.getStart().isAfter(LocalDateTime.now()))
                 .min(Comparator.comparing(Booking::getStart, LocalDateTime::compareTo))
