@@ -55,10 +55,6 @@ public class Item {
     )
     private User owner;
 
-    //@ManyToOne
-    //@JoinColumn(name = "request_id")
-    //private ItemRequest request;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
