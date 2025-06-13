@@ -5,12 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @Builder
-public class ItemPartialDto {
+public class CommentPartialDto {
     private long id;
-    private String name;
-    private String description;
-    private boolean available;
+    private String text;
+    private LocalDateTime created;
+    private String authorName;
 }

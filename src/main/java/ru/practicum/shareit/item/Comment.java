@@ -4,22 +4,24 @@ import jakarta.persistence.*;
 import lombok.*;
 import ru.practicum.shareit.user.User;
 
+import java.time.LocalDateTime;
+
 /**
- * Класс—модель данных приложения, дающий описание объекту Item.
+ * Класс—модель данных приложения, дающий описание объекту Comment.
  */
 
 @Entity
-@Table(name = "items")
+@Table(name = "comments")
 @NamedEntityGraph(
-        name = "item.owner",
-        attributeNodes = {@NamedAttributeNode("owner")}
+        name = "comment.item",
+        attributeNodes = {@NamedAttributeNode("item")}
 )
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Item {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,35 +33,37 @@ public class Item {
     private Long id;
 
     @Column(
-            name = "name",
+            name = "text",
             nullable = false
     )
-    private String name;
-
-    @Column(
-            name = "description",
-            nullable = false
-    )
-    private String description;
-
-    @Column(
-            name = "available",
-            nullable = false
-    )
-    private Boolean available;
+    private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "owner_id",
+            name = "item_id",
             nullable = false
     )
-    private User owner;
+    private Item item;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "author_id",
+            nullable = false
+    )
+    private User author;
+
+    @Column(
+            name = "created_date_time",
+            nullable = false
+    )
+    private LocalDateTime created;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Item)) return false;
-        return id != null && id.equals(((Item) o).getId());
+        if (!(o instanceof Comment)) return false;
+        return id != null && id.equals(((Comment) o).getId());
     }
 
     @Override
