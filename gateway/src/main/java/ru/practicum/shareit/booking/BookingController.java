@@ -10,6 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingState;
 
+/**
+ * BookingController — класс-контроллер, предоставляющий REST API для работы с данными типа Booking.
+ * Базовый путь - /bookings.
+ * Принимает, проводит валидацию сообщений от пользователей. Корректные запросы отправляются
+ * микросервису shareIt Service и от него возвращаются запрошенные данные для пользователей.
+ */
 
 @Controller
 @Slf4j

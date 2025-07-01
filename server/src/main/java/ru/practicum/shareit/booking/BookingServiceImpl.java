@@ -17,6 +17,16 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * BookingServiceImpl — класс, реализующий интерфейс BookingService.
+ * Содержит всю бизнес-логику по работе с объектами Booking:
+ * добавление нового Booking, обновление статуса Booking,
+ * получение Booking по ID, получение списка всех Booking пользователя,
+ * получение списка Booking по вещам пользователя.
+ * Выполняет запросы к базе данных
+ * Определяет транзакционные методы.
+ */
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

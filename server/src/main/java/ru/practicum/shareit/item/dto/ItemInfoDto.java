@@ -6,6 +6,13 @@ import ru.practicum.shareit.booking.BookingStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Data transfer object объекта Item, используемый для ответа на запросы.
+ * Все поля объекта заполняются, за исключением полей lastBooking и nextBooking,
+ * в зависимости от бизнес-логики и запроса.
+ * Частично используются примитивные типы данных для улучшения быстродействия.
+ */
+
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @Builder

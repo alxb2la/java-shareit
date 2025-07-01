@@ -10,6 +10,16 @@ import ru.practicum.shareit.user.dto.UserUpdateDto;
 
 import java.util.Collection;
 
+/**
+ * UserServiceImpl — класс, реализующий интерфейс UserService.
+ * Содержит всю бизнес-логику по работе с объектами User:
+ * добавление нового User, обновление данных по User,
+ * получение User по ID, удаление User по ID,
+ * получение списка всех User в приложении.
+ * Выполняет запросы к базе данных
+ * Определяет транзакционные методы.
+ */
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

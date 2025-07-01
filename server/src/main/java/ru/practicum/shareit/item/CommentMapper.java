@@ -6,6 +6,11 @@ import ru.practicum.shareit.user.User;
 
 import java.time.LocalDateTime;
 
+/**
+ * Утилитный класс для взаимного преобразования объектов entity Comment и
+ * dto объектов CommentCreateDto, CommentPartialDto
+ */
+
 public final class CommentMapper {
 
     private CommentMapper() {

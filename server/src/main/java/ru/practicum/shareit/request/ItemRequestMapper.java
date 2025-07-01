@@ -10,6 +10,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Утилитный класс для взаимного преобразования объектов entity ItemRequest и
+ * dto объектов ItemRequestCreateDto, ItemRequestShortDto, ItemRequestDto
+ */
+
 public final class ItemRequestMapper {
 
     private ItemRequestMapper() {

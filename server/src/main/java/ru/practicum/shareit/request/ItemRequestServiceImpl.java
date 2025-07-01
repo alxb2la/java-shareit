@@ -15,6 +15,16 @@ import ru.practicum.shareit.user.UserRepository;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * ItemRequestServiceImpl — класс, реализующий интерфейс ItemRequestService.
+ * Содержит всю бизнес-логику по работе с объектами ItemRequest:
+ * добавление нового ItemRequest, получение ItemRequest по ID,
+ * получение списка всех ItemRequest пользователя,
+ * получение списка ItemRequest всех остальных пользователей, кроме запрашивающего.
+ * Выполняет запросы к базе данных
+ * Определяет транзакционные методы.
+ */
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

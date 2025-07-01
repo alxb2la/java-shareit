@@ -13,6 +13,7 @@ import java.util.Collection;
 /**
  * ItemRequestController — класс-контроллер, предоставляющий REST API для работы с данными типа ItemRequest.
  * Базовый путь - /requests.
+ * Обмен данными осуществляется с микросервисом shareIt Gateway
  */
 
 @RestController

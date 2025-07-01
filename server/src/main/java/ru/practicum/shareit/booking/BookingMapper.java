@@ -5,6 +5,11 @@ import ru.practicum.shareit.booking.dto.BookingPartialDto;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.user.User;
 
+/**
+ * Утилитный класс для взаимного преобразования объектов entity Booking и
+ * dto объектов BookingCreateDto, BookingPartialDto
+ */
+
 public final class BookingMapper {
 
     private BookingMapper() {

@@ -3,6 +3,11 @@ package ru.practicum.shareit.user;
 import ru.practicum.shareit.user.dto.UserCreateDto;
 import ru.practicum.shareit.user.dto.UserFullDto;
 
+/**
+ * Утилитный класс для взаимного преобразования объектов entity User и
+ * dto объектов UserCreateDto, UserFullDto
+ */
+
 public final class UserMapper {
 
     private UserMapper() {

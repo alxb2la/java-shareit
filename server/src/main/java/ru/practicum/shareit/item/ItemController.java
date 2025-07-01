@@ -11,6 +11,7 @@ import java.util.Collection;
 /**
  * ItemController — класс-контроллер, предоставляющий REST API для работы с данными типа Item и Comment.
  * Базовый путь - /items.
+ * Обмен данными осуществляется с микросервисом shareIt Gateway
  */
 
 @RestController

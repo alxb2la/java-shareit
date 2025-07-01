@@ -12,6 +12,12 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Базовый класс, предоставляющий набор методов для взаимодействия с REST API,
+ * HTTP-запросы - GET, POST, PUT, PATCH, DELETE
+ * За основу взят класс RestTemplate из org.springframework.web.client
+ */
+
 public class BaseClient {
     protected final RestTemplate rest;
 

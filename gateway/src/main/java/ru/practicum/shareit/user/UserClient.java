@@ -11,6 +11,14 @@ import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.user.dto.UserCreateDto;
 import ru.practicum.shareit.user.dto.UserUpdateDto;
 
+/**
+ * UserClient - класс, наследующий класс BaseClient и использует
+ * необходимый набор методов для взаимодействия с REST API.
+ * Формирует корректные запросы и обрабатывает ответы от микросервиса shareIt Service
+ * по объекту User, путь /users, HTTP-запросы - GET, POST, PATCH, DELETE
+ * Для постоения RestTemplate используется реализация от HttpComponents
+ */
+
 @Service
 public class UserClient extends BaseClient {
     private static final String API_PREFIX = "/users";

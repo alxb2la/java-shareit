@@ -12,6 +12,12 @@ import ru.practicum.shareit.booking.BookingStatus;
 
 import java.time.LocalDateTime;
 
+/**
+ * Data transfer object, используемый для создания объекта Booking.
+ * Определены поля, требующие валидации при получении.
+ * Для этого используются только объектные типы данных
+ */
+
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @Builder

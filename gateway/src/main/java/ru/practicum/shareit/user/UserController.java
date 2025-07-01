@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserCreateDto;
 import ru.practicum.shareit.user.dto.UserUpdateDto;
 
+/**
+ * UserController — класс-контроллер, предоставляющий REST API для работы с данными типа User.
+ * Базовый путь - /users.
+ * Принимает, проводит валидацию сообщений от пользователей. Корректные запросы отправляются
+ * микросервису shareIt Service и от него возвращаются запрошенные данные для пользователей.
+ */
 
 @Controller
 @Slf4j

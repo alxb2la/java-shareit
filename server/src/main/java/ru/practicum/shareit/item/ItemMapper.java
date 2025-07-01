@@ -9,6 +9,11 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Утилитный класс для взаимного преобразования объектов entity Item и
+ * dto объектов ItemCreateDto, ItemPartialDto, ItemInfoDto
+ */
+
 public final class ItemMapper {
 
     private ItemMapper() {

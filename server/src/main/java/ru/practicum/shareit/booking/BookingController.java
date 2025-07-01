@@ -14,6 +14,7 @@ import java.util.Collection;
 /**
  * BookingController — класс-контроллер, предоставляющий REST API для работы с данными типа Booking.
  * Базовый путь - /bookings.
+ * Обмен данными осуществляется с микросервисом shareIt Gateway
  */
 
 @RestController

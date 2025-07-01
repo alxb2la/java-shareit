@@ -13,6 +13,7 @@ import java.util.Collection;
 /**
  * UserController — класс-контроллер, предоставляющий REST API для работы с данными типа User.
  * Базовый путь - /users.
+ * Обмен данными осуществляется с микросервисом shareIt Gateway
  */
 
 @RestController

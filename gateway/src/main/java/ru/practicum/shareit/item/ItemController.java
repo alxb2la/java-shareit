@@ -11,6 +11,12 @@ import ru.practicum.shareit.item.dto.*;
 
 import java.util.List;
 
+/**
+ * ItemController — класс-контроллер, предоставляющий REST API для работы с данными типа Booking, Comment
+ * Базовый путь - /items.
+ * Принимает, проводит валидацию сообщений от пользователей. Корректные запросы отправляются
+ * микросервису shareIt Service и от него возвращаются запрошенные данные для пользователей.
+ */
 
 @Controller
 @Slf4j

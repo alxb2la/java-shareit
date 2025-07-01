@@ -18,6 +18,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * ItemServiceImpl — класс, реализующий интерфейс ItemService.
+ * Содержит всю бизнес-логику по работе с объектами Item и Comment:
+ * добавление нового Item и Comment, обновление данных по Item,
+ * получение Item по ID, получение списка всех Item пользователя,
+ * получение списка Item по текстовому параметру, содержащемуся в имени или описании
+ * Выполняет запросы к базе данных
+ * Определяет транзакционные методы.
+ */
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

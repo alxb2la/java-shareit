@@ -8,6 +8,12 @@ import ru.practicum.shareit.booking.BookingStatus;
 
 import java.time.LocalDateTime;
 
+/**
+ * Data transfer object объекта Booking, используемый для ответа на запросы.
+ * Все поля объекта заполняются полностью, отсутствовать не могут.
+ * Частично используются примитивные типы данных для улучшения быстродействия.
+ */
+
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @Builder

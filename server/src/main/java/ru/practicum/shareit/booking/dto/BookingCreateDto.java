@@ -8,6 +8,11 @@ import ru.practicum.shareit.booking.BookingStatus;
 
 import java.time.LocalDateTime;
 
+/**
+ * Data transfer object, используемый для создания объекта Booking.
+ * Валидации полей осуществляется в микросервисе shareIt Gateway.
+ */
+
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @Builder

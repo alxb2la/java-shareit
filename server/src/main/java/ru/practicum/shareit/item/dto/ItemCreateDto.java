@@ -5,6 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Data transfer object, используемый для создания объекта Item.
+ * Валидации полей осуществляется в микросервисе shareIt Gateway.
+ */
+
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @Builder
