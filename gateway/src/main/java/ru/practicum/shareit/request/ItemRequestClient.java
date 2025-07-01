@@ -10,6 +10,14 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.request.dto.ItemRequestCreateDto;
 
+/**
+ * ItemRequestClient - класс, наследующий класс BaseClient и использует
+ * необходимый набор методов для взаимодействия с REST API.
+ * Формирует корректные запросы и обрабатывает ответы от микросервиса shareIt Service
+ * по объекту ItemRequest, путь /requests, HTTP-запросы - GET, POST
+ * Для постоения RestTemplate используется реализация от HttpComponents
+ */
+
 @Service
 public class ItemRequestClient extends BaseClient {
     private static final String API_PREFIX = "/requests";
@@ -24,19 +32,19 @@ public class ItemRequestClient extends BaseClient {
         );
     }
 
-    ResponseEntity<Object> addItemRequest(Long userId, ItemRequestCreateDto itemRequestDto) {
+    public ResponseEntity<Object> addItemRequest(Long userId, ItemRequestCreateDto itemRequestDto) {
         return post("", userId, itemRequestDto);
     }
 
-    ResponseEntity<Object> getAllItemRequestsByOwnerId(Long userId) {
+    public ResponseEntity<Object> getAllItemRequestsByOwnerId(Long userId) {
         return get("", userId);
     }
 
-    ResponseEntity<Object> getAllItemRequestsOfOtherUsers(Long userId) {
+    public ResponseEntity<Object> getAllItemRequestsOfOtherUsers(Long userId) {
         return get("/all", userId);
     }
 
-    ResponseEntity<Object> getItemRequestById(Long userId, Long requestId) {
+    public ResponseEntity<Object> getItemRequestById(Long userId, Long requestId) {
         return get("/" + requestId, userId);
     }
 }
